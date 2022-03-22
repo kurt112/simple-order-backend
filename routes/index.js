@@ -4,7 +4,7 @@ const sha1 = require('sha1')
 const axios = require('axios');
 
 router.post('/pay', async (req,res) => {
-  const {amount,txnid,callback_url,name,mobile,description,redirect_url} = req.body.data;
+  const {amount,expires_at,txnid,callback_url,name,mobile,description,redirect_url} = req.body.data;
 
   const sha = await sha1(`${amount}${txnid}08919f7b1e1299f74feb4309ab388d12e6e868ae`)
   const formData = {
@@ -15,7 +15,8 @@ router.post('/pay', async (req,res) => {
     name,
     mobile,
     description,
-    redirect_url
+    redirect_url,
+    expires_at
   };
   await axios.post('https://pgi-stg-ws.pearlpay.io/api/v1/transactions/generate',formData,{
     headers:{
