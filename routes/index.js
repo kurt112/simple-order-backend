@@ -3,11 +3,6 @@ const router = express.Router();
 const sha1 = require('sha1')
 const axios = require('axios');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 router.post('/pay', async (req,res) => {
   const {amount,txnid,callback_url,name,mobile,description,redirect_url} = req.body.data;
 
@@ -17,7 +12,6 @@ router.post('/pay', async (req,res) => {
     txnid: txnid,
     callback_url: callback_url,
     digest: sha,
-    redirect_url: 'https://simple-order-64158.web.app/',
     name,
     mobile,
     description,
